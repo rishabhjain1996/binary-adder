@@ -42,4 +42,6 @@ for i in xrange(iter):
     dz2=a2-y.T
     dw2=np.dot(dz2,a1.T)/m  #dw2(5,4)
     db2=np.sum(dz2,axis=1,keepdims=True)
-
+    dz1=np.dot(w2.T,dz2)*tanh(z1,True)    #dz2(4,m)
+    dw1=np.dot(dz1,X.T)
+    db1=np.sum(dz1,axis=1,keepdims=True)

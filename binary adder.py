@@ -1,4 +1,5 @@
 import numpy as np
+import decimal
 
 
 def sigmoid(x, deriv=False):
@@ -31,19 +32,29 @@ def relu(x, derivative=False):
     return x
 
 
+def thresh(x):
+    for i in range(0, len(x)):
+        for k in range(len(x[i])):
+            if x[i][k] >= 0.5:
+                x[i][k] = 1
+            else:
+                x[i][k] = 0
+    return x
+
+
 X = np.loadtxt("data.txt").T  # read input file
 
 # ground label Truth or output
 
 y = np.loadtxt("ans.txt")  # read ans
 
-# seeding random numbers
+n=np.shape(X)[0]   # bits in a binary number
 
 # weight matrix
-w1 = 2 * np.random.random((4, np.shape(X)[0])) - 1  # (4,8) as we have 4 nodes in hidden layer 2
+w1 = 2 * np.random.random((4,n )) - 1  # (4,8) as we have 4 nodes in hidden layer 2
 b1 = 2 * np.random.random((4, 1)) - 1
-w2 = 2 * np.random.random((np.shape(X)[0] / 2 + 1, 4)) - 1  # (5,4) as we have 5 nodes in output layer
-b2 = 2 * np.random.random((np.shape(X)[0] / 2 + 1, 1)) - 1
+w2 = 2 * np.random.random((n / 2 + 1, 4)) - 1  # (5,4) as we have 5 nodes in output layer
+b2 = 2 * np.random.random((n / 2 + 1, 1)) - 1
 
 m = np.shape(X)[1]  # calc no of test cases automatically , here dimension of X is returned
 
@@ -76,4 +87,5 @@ a1 = relu(z1)
 z2 = np.dot(w2, z1) + b2
 a2 = sigmoid(z2)
 print
-print 'Predicted Value : ', a2
+
+print 'Predicted Value : ', thresh(a2)

@@ -34,7 +34,12 @@ for i in xrange(iter):
     # forward propogation
     z1 = np.dot(w1, X) + b1  # z1(4,m)
     a1 = tanh(z1)
-    z2=np.dot(w2,z1)+b2
+    z2=np.dot(w2,z1)+b2    #z2(5,m)
     a2=sigmoid(z2)
 
     # backward propogation
+
+    dz2=a2-y.T
+    dw2=np.dot(dz2,a1.T)/m  #dw2(5,4)
+    db2=np.sum(dz2,axis=1,keepdims=True)
+

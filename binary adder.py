@@ -76,12 +76,14 @@ for i in xrange(iter):
     dz1 = np.dot(w2.T, dz2) * relu(z1, True)  # dz2(4,m)
     dw1 = np.dot(dz1, X.T)
     db1 = np.sum(dz1, axis=1, keepdims=True)
+
+
     w1 = w1 - alpha * dw1
     b1 = b1 - alpha * db1
     w2 = w2 - alpha * dw2
     b2 = b2 - alpha * db2
 
-x = np.array([[1], [1], [1], [1], [1], [1], [1], [1]])
+x = np.array([[0], [0], [1], [0], [0], [0], [1], [0],[0], [0], [1], [0]])
 z1 = np.dot(w1, x) + b1
 a1 = relu(z1)
 z2 = np.dot(w2, z1) + b2
